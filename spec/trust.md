@@ -407,12 +407,15 @@ The process configuration proposes dream mode (process configuration §6.13): a 
 - **No real secrets.** A dream sandbox receives no real secret. The executor injects no API key, token or password into a dream invocation, and a tool that would need one to act is either simulated by its own dream mode or refused.
 - **Privileged operations are only simulated.** Every privileged operation of §18 — a payment, a publication, a deploy, a message to an external person, a physical device, a deletion, a migration — is simulated in a dream and never performed. A tool whose provider does not declare dream support is refused, so an unsupported path cannot reach the real world.
 - **Dream evidence never counts for authority.** A confirmation, capability grant, delegation grant, approval, verdict, signed event or narrowing act recorded in a dream has no effect outside it, and the kernel never accepts one as input to the version in force, to `granted()` or to a guard on a real board. A person may read a dream's report before confirming a version; the report is evidence of a rehearsal, and confirming is still a separate act with presence (§4).
+- **Read-only access to past sessions** *(proposed)*. In a dream an orchestrator may read the full harness logs of its own previous sessions, read-only and only as the deterministic log distiller prepared them (process configuration §6.13; curator-keeper §13.6). The distiller redacts secret-shaped content — keys, tokens, passwords — that leaked into a transcript. A dream reads only its own process's sessions, never another process's or another person's, and writes nothing back to the logs.
+- **What leaves a dream.** Only the dream's report and its insights leave the sandbox. Insights go to dream memory, quarantined until a person reviews them; they never become an instruction to a session, a grant or a confirmation. The proposals the system roles draw from them take the ordinary paths: a batched touch for a change to a process, the person's consent for a change set to the apiary's repository.
 - **Signing in a dream.** A dream uses no presence-bound key. A dream that needs a person's act asks for it in dream form, clearly marked, and records it as dream evidence only.
 - **The sandbox is not a trust boundary by itself.** While agents run as the operator's OS user (§12), the sandbox's isolation from real secrets and real tools rests on the executor, which is a guardrail until the separate agent account exists. A tool's promise to have no side effect under `--dream` is part of what its audit covers.
 
 ## 21. Change log: v0.1 → v0.2
 
 - **Dream sandbox isolation** (§20), for the dream mode proposed in process configuration §6.13 (curator-playbook DRAFT v4.2): no real secrets, privileged operations only simulated, dream evidence never counts for authority.
+- **Read-only access to past sessions in a dream** (§20): an orchestrator reads its own process's previous harness logs through the deterministic log distiller, which redacts secret-shaped content; only the dream's report and its quarantined insights leave the sandbox.
 
 ## 22. Change log: v0 → v0.1
 
