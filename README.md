@@ -10,7 +10,12 @@ Trust for agent systems. The design says who counts as a person, how a person's 
 
 ## Status
 
-**Draft design.** Nothing is implemented here. The specification is [`spec/trust.md`](spec/trust.md), with its track in [`spec/track.md`](spec/track.md). Both arrive through pull requests.
+**Draft design, v0.1.** Nothing is implemented here. Delivery happens in the components that use this design: task-board (the board kernel), the session host, the main loop and the companion app.
+
+| Path | Content |
+| --- | --- |
+| [`spec/trust.md`](spec/trust.md) | the specification |
+| [`spec/track.md`](spec/track.md) | milestones TR0–TR6, dependencies and risks |
 
 The repository is private until the licensing work and the counsel review are done.
 
