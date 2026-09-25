@@ -357,7 +357,7 @@ A process should not wait for a touch on every change, and a person should not b
 - **Workflow structure always waits for a touch.** States and transitions, entities and their workflows, `policy.goals` and `policy.capacity` are never a capability. Touches are batched: one confirmation covers every pending change (§4).
 - **Revocation** of a capability grant is revoking a grant, one of the three narrowing acts: it takes effect at once (§5).
 - **Review.** Once a month, together with the review of standing answers (process configuration §9), the main loop lists every capability grant that is not sealed. Until the main loop exists, a board notice does it. The person re-confirms each grant or revokes it.
-  - **Sealing.** A grant re-confirmed at two consecutive reviews is sealed: the operator asked to "запечатлеть решение через пару напоминаний" (seal the decision after a couple of reminders), and the number two is the author's. A sealed grant is not reviewed again until it is revoked or its scope changes.
+  - **Sealing.** A grant re-confirmed at two consecutive reviews is sealed: the operator asked to "seal the decision after a couple of reminders", and the number two is the author's. A sealed grant is not reviewed again until it is revoked or its scope changes.
   - **An unanswered review** leaves the grant in force, shown as unreviewed. It is asked again at the next review, and the person can revoke it at any time. This is the author's choice: the kinds are narrow by construction. Standing answers differ: they relax hard requirements, and an unanswered review stops them (process configuration §9).
 
 ## 17. yolo mode *(decided 2026-09-25)*
