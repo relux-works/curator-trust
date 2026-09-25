@@ -1,6 +1,6 @@
 # Trust: persons, keys, confirmations, capabilities and signatures
 
-Status: **DRAFT v0.2**, 2026-09-25. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
+Status: **DRAFT v0.3**, 2026-09-25. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
 
 - confirmers, confirmations and their records;
 - the capabilities a person grants once (§16), and the explicit mode that trusts every change (§17);
@@ -356,6 +356,12 @@ A process should not wait for a touch on every change, and a person should not b
   - events and their signers;
   - the board's default branch.
 - **Workflow structure always waits for a touch.** States and transitions, entities and their workflows, `policy.goals` and `policy.capacity` are never a capability. Touches are batched: one confirmation covers every pending change (§4).
+- **Activity capabilities** *(proposed, 2026-09-25)*. One kind covers an activity rather than a difference of configuration:
+  - **`dreams`** lets the main loop put this process's orchestrators into dreams (process configuration §6.13), under the process's `policy.dreams` and within the node's capacity.
+  - The grant is asked once per process, and it is never granted by default.
+  - It covers no configuration difference, confirmation, delegation or other grant. It lets a dream start, nothing more.
+  - Changing `policy.dreams` is a change to the process, and it waits like any other policy (process configuration §2.4).
+  - Revoking the grant stops future dreams at once. A dream already running is parked, and its outputs stay quarantined.
 - **Revocation** of a capability grant is revoking a grant, one of the three narrowing acts: it takes effect at once (§5).
 - **Review.** Once a month, together with the review of standing answers (process configuration §9), the main loop lists every capability grant that is not sealed. Until the main loop exists, a board notice does it. The person re-confirms each grant or revokes it.
   - **Sealing.** A grant re-confirmed at two consecutive reviews is sealed: the operator asked to "seal the decision after a couple of reminders", and the number two is the author's. A sealed grant is not reviewed again until it is revoked or its scope changes.
@@ -410,14 +416,24 @@ The process configuration proposes dream mode (process configuration §6.13): a 
 - **Read-only access to past sessions** *(proposed)*. In a dream an orchestrator may read the full harness logs of its own previous sessions, read-only and only as the deterministic log distiller prepared them (process configuration §6.13; curator-keeper §13.6). The distiller redacts secret-shaped content — keys, tokens, passwords — that leaked into a transcript. A dream reads only its own process's sessions, never another process's or another person's, and writes nothing back to the logs.
 - **What leaves a dream.** Only the dream's report and its insights leave the sandbox. Insights go to dream memory, quarantined until a person reviews them; they never become an instruction to a session, a grant or a confirmation. The proposals the system roles draw from them take the ordinary paths: a batched touch for a change to a process, the person's consent for a change set to the apiary's repository.
 - **Signing in a dream.** A dream uses no presence-bound key. A dream that needs a person's act asks for it in dream form, clearly marked, and records it as dream evidence only.
+- **Entering and leaving a dream** *(proposed, 2026-09-25)*.
+  - A dream starts only while the `dreams` grant (§16) is in force for the process and its `policy.dreams` conditions hold.
+  - The dream session runs with the role's dream profile. That profile is data like any Curator profile: it chooses what the context says, never how a process is launched, and it holds no key, secret or grant.
+  - Parking the normal session before the dream and resuming it afterwards are the session host's ordinary operations, and they change no authority.
+  - A real high-priority doorbell wakes the dreamer. That doorbell is a real message verified as outside a dream, and nothing a dream produces can ring it.
 - **The sandbox is not a trust boundary by itself.** While agents run as the operator's OS user (§12), the sandbox's isolation from real secrets and real tools rests on the executor, which is a guardrail until the separate agent account exists. A tool's promise to have no side effect under `--dream` is part of what its audit covers.
 
-## 21. Change log: v0.1 → v0.2
+## 21. Change log: v0.2 → v0.3
+
+- **The `dreams` capability** (§16): an activity capability asked once per process. It lets the main loop put the process's orchestrators into dreams under `policy.dreams` (process configuration §6.13, curator-playbook DRAFT v4.3), covers no configuration difference, confirmation, delegation or other grant, and is never granted by default.
+- **Entering and leaving a dream** (§20). The dream profile is data and carries no key or secret; park and resume change no authority; and only a real, verified high-priority doorbell wakes the dreamer.
+
+## 22. Change log: v0.1 → v0.2
 
 - **Dream sandbox isolation** (§20), for the dream mode proposed in process configuration §6.13 (curator-playbook DRAFT v4.2): no real secrets, privileged operations only simulated, dream evidence never counts for authority.
 - **Read-only access to past sessions in a dream** (§20): an orchestrator reads its own process's previous harness logs through the deterministic log distiller, which redacts secret-shaped content; only the dream's report and its quarantined insights leave the sandbox.
 
-## 22. Change log: v0 → v0.1
+## 23. Change log: v0 → v0.1
 
 - **The move.** This document moved from relux-works/curator-playbook into its own private repository, and the reasons are stated in the introduction. Links to the core and to its reviews now point to that repository.
 - **Operator decisions of 2026-09-25 recorded in this revision:**

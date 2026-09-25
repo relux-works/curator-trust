@@ -1,6 +1,6 @@
 # Track: trust
 
-Status: **DRAFT v0.2**, 2026-09-25. Specification: [`trust.md`](trust.md). It moved here from relux-works/curator-playbook at that core's draft v4.1. The core is relux-works/curator-playbook `spec/process-configuration.md`; its track owns the delivery milestones this track names (PC1, PC3).
+Status: **DRAFT v0.3**, 2026-09-25. Specification: [`trust.md`](trust.md). It moved here from relux-works/curator-playbook at that core's draft v4.1. The core is relux-works/curator-playbook `spec/process-configuration.md`; its track owns the delivery milestones this track names (PC1, PC3).
 
 ## Why
 
