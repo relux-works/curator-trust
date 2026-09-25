@@ -1,6 +1,6 @@
 # Trust: persons, keys, confirmations, capabilities and signatures
 
-Status: **DRAFT v0.1**, 2026-09-25. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
+Status: **DRAFT v0.2**, 2026-09-25. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
 
 - confirmers, confirmations and their records;
 - the capabilities a person grants once (§16), and the explicit mode that trusts every change (§17);
@@ -10,9 +10,10 @@ Status: **DRAFT v0.1**, 2026-09-25. Not normative. This document split out of th
 - the verification of delegation grants and delegated acts;
 - confirmation of the operator's own files;
 - privileged operations (§18) and multisignatures (§19);
+- the isolation of a dream sandbox (§20);
 - the separate OS account that is the real boundary (§12).
 
-The operator accepted the principles of §1 on 2026-09-25 and decided the points marked *decided*. The rest is the author's and waits for its own review. The refuter's sixth run ([`reviews/2026-09-24-refuter-v5.md`](https://github.com/relux-works/curator-playbook/blob/main/reviews/2026-09-24-refuter-v5.md) in curator-playbook) found the gaps that §15 maps. §20 is the change log.
+The operator accepted the principles of §1 on 2026-09-25 and decided the points marked *decided*. The rest is the author's and waits for its own review. The refuter's sixth run ([`reviews/2026-09-24-refuter-v5.md`](https://github.com/relux-works/curator-playbook/blob/main/reviews/2026-09-24-refuter-v5.md) in curator-playbook) found the gaps that §15 maps. §21 and §22 are the change logs.
 
 **Why a repository of its own, and why not waggle.** waggle defines forms: signed envelopes, keys and their providers, the roster, the wire forms of board acts. This document is the policy that uses those forms: who counts as a person, what needs a person, and what a person's signature shows. Several components rely on it: the board (process configuration), the main loop and the session host, the operator companion app, and trust in Curator's audits. So it is none of them. It is also private. waggle is a public protocol under Apache-2.0, while this design waits for the licensing work and the counsel review (wiki `open-questions.md`, Licensing) before any part of it is published. waggle's Amendment A1 keeps the wire forms of board acts and points here for what they mean.
 
@@ -399,7 +400,21 @@ A privileged operation spends money, acts in the world on the person's behalf, o
 - **Delegated acts** count as their grantor at most once toward M (process configuration §4.2).
 - **Stages.** At L0 the threshold is 1. From L1 the confirmers group states its threshold; the shape of that key is open (§14 item 3).
 
-## 20. Change log: v0 → v0.1
+## 20. Dream sandbox isolation *(proposed, 2026-09-25)*
+
+The process configuration proposes dream mode (process configuration §6.13): a process is rehearsed with every tool called with `--dream`, against a copy of the board, and the agent knows it is dreaming. A dream must never become a way around trust.
+
+- **No real secrets.** A dream sandbox receives no real secret. The executor injects no API key, token or password into a dream invocation, and a tool that would need one to act is either simulated by its own dream mode or refused.
+- **Privileged operations are only simulated.** Every privileged operation of §18 — a payment, a publication, a deploy, a message to an external person, a physical device, a deletion, a migration — is simulated in a dream and never performed. A tool whose provider does not declare dream support is refused, so an unsupported path cannot reach the real world.
+- **Dream evidence never counts for authority.** A confirmation, capability grant, delegation grant, approval, verdict, signed event or narrowing act recorded in a dream has no effect outside it, and the kernel never accepts one as input to the version in force, to `granted()` or to a guard on a real board. A person may read a dream's report before confirming a version; the report is evidence of a rehearsal, and confirming is still a separate act with presence (§4).
+- **Signing in a dream.** A dream uses no presence-bound key. A dream that needs a person's act asks for it in dream form, clearly marked, and records it as dream evidence only.
+- **The sandbox is not a trust boundary by itself.** While agents run as the operator's OS user (§12), the sandbox's isolation from real secrets and real tools rests on the executor, which is a guardrail until the separate agent account exists. A tool's promise to have no side effect under `--dream` is part of what its audit covers.
+
+## 21. Change log: v0.1 → v0.2
+
+- **Dream sandbox isolation** (§20), for the dream mode proposed in process configuration §6.13 (curator-playbook DRAFT v4.2): no real secrets, privileged operations only simulated, dream evidence never counts for authority.
+
+## 22. Change log: v0 → v0.1
 
 - **The move.** This document moved from relux-works/curator-playbook into its own private repository, and the reasons are stated in the introduction. Links to the core and to its reviews now point to that repository.
 - **Operator decisions of 2026-09-25 recorded in this revision:**

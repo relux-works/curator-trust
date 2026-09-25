@@ -10,7 +10,7 @@ Trust for agent systems. The design says who counts as a person, how a person's 
 
 ## Status
 
-**Draft design, v0.1.** Nothing is implemented here. Delivery happens in the components that use this design: task-board (the board kernel), the session host, the main loop and the companion app.
+**Draft design, v0.2.** v0.2 adds the isolation of a dream sandbox (§20). Nothing is implemented here. Delivery happens in the components that use this design: task-board (the board kernel), the session host, the main loop and the companion app.
 
 | Path | Content |
 | --- | --- |
