@@ -1,6 +1,6 @@
 # Trust: persons, keys, confirmations, capabilities and signatures
 
-Status: **DRAFT v0.3**, 2026-09-25. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
+Status: **DRAFT v0.4**, 2026-09-27. Not normative. This document split out of the process-configuration specification at its draft v4.0 and moved here from relux-works/curator-playbook (`spec/trust.md` at `1f87190`, DRAFT v0), so that the core can be frozen while trust goes through its own refuter rounds. The core is relux-works/curator-playbook [`spec/process-configuration.md`](https://github.com/relux-works/curator-playbook/blob/main/spec/process-configuration.md), cited below as *process configuration*. This document decides who counts as a person and how a person's acts are shown. It covers:
 
 - confirmers, confirmations and their records;
 - the capabilities a person grants once (§16), and the explicit mode that trusts every change (§17);
@@ -13,7 +13,7 @@ Status: **DRAFT v0.3**, 2026-09-25. Not normative. This document split out of th
 - the isolation of a dream sandbox (§20);
 - the separate OS account that is the real boundary (§12).
 
-The operator accepted the principles of §1 on 2026-09-25 and decided the points marked *decided*. The rest is the author's and waits for its own review. The refuter's sixth run ([`reviews/2026-09-24-refuter-v5.md`](https://github.com/relux-works/curator-playbook/blob/main/reviews/2026-09-24-refuter-v5.md) in curator-playbook) found the gaps that §15 maps. §21 and §22 are the change logs.
+The operator accepted the principles of §1 on 2026-09-25 and decided the points marked *decided*. The rest is the author's and waits for its own review. The refuter's sixth run ([`reviews/2026-09-24-refuter-v5.md`](https://github.com/relux-works/curator-playbook/blob/main/reviews/2026-09-24-refuter-v5.md) in curator-playbook) found the gaps that §15 maps. §21–§24 are the change logs. The commands follow the command-line shape the operator adopted on 2026-09-27 (wiki `research/cli-shaping-review.md`): every act a person takes here is a verb of `task-board trust` (§2.1).
 
 **Why a repository of its own, and why not waggle.** waggle defines forms: signed envelopes, keys and their providers, the roster, the wire forms of board acts. This document is the policy that uses those forms: who counts as a person, what needs a person, and what a person's signature shows. Several components rely on it: the board (process configuration), the main loop and the session host, the operator companion app, and trust in Curator's audits. So it is none of them. It is also private. waggle is a public protocol under Apache-2.0, while this design waits for the licensing work and the counsel review (wiki `open-questions.md`, Licensing) before any part of it is published. waggle's Amendment A1 keeps the wire forms of board acts and points here for what they mean.
 
@@ -31,7 +31,7 @@ The operator accepted the principles of §1 on 2026-09-25 and decided the points
 | external participants | wild bees | agents of other owners working on part of a process under leases and signatures |
 | process package | nuc | a published playbook from which a new process starts |
 
-The operators approved these names on 2026-09-25, the English forms included *(decided)*. Specifications use the technical terms. The wiki's naming page keeps the mapping.
+The operators approved these names on 2026-09-25, the English forms included *(decided)*. Specifications use the technical terms. The wiki's naming page keeps the mapping. Beekeeping words appear only where people type them in an apiary — the `keeper` command and its nouns, the apiary's directories and the profile name `apiary` — and every command, flag and key of this document uses technical terms *(decided 2026-09-27)*.
 
 ## 0. The design on one screen
 
@@ -80,6 +80,24 @@ This document gives the kernel four answers:
 - **`verify(act)`**: whether a signed act was made by a principal allowed to make it, with a key strong enough. The act may be a confirmation, a capability grant, an approval, a delegation grant or a delegated act (§3, §6, §7, §16).
 
 In PC1 the trust component is a guardrail stub (§13). The core's rules are the same in every stage; only the strength of these four answers changes.
+
+### 2.1 The command line *(decided 2026-09-27; the flags proposed)*
+
+Every act of this document that a person takes at a terminal is a verb of one kernel noun, `task-board trust`, so one noun carries the refusal of agent sessions. Every mutating verb refuses to run in an agent session, which is a guardrail. From PC3 none can complete without the person's presence, which is the boundary (§3, §4). In an apiary the person types the `keeper` front (curator-keeper §7.2).
+
+| Command | Act | The `keeper` front |
+| --- | --- | --- |
+| `task-board trust init` | records the anchor (§3); `--reanchor` runs the recovery of §3 through the same local path | `keeper init` |
+| `task-board trust status` | the version in force, the pending versions and what each waits for, the grants in force and those due for review, the enrolled keys, and yolo mode | `keeper status`, `keeper inbox`, `keeper review` |
+| `task-board trust confirm [--node <node>]` | confirms a pending version (§4); `--node` runs the workstation path for a headless node (§9) | `keeper confirm` |
+| `task-board trust grant <kind>[:<name>] [--for <duration>]`, `task-board trust revoke …` | grants or revokes a capability, `yolo` and `dreams` included (§16, §17), or a delegation under a rule of the project (§7); a revocation is a narrowing act (§5) | `keeper grant`, `keeper revoke` |
+| `task-board trust disable <tool>`, `task-board trust enable <tool>` | disables a tool, a narrowing act (§5); enabling it again waits like any change that restores what a narrowing removed (§5) | — |
+| `task-board trust keys list`, `keys add`, `keys revoke [--compromised]` | the enrolled keys; enrolls a key by certification (§3), by pairing the companion app (§8) or by registering a workstation's key (§9); revokes a key, a narrowing act (§5) | `keeper device list\|pair\|revoke` |
+
+- `task-board playbook confirm` stays an alias of `task-board trust confirm` for one release (process configuration §2.3).
+- The workstation path takes `--node`, never `--remote`, because task-board's global `--remote` names a board server.
+- `task-board config status` shows the same differences and grants from the process's side, before anyone confirms (process configuration §2.3).
+- The operator's files are confirmed through their own command families (§10), not through `task-board trust`, because they are machine-local and Curator owns them.
 
 ## 3. Persons, keys and enrollment
 
@@ -134,7 +152,7 @@ In PC1 the trust component is a guardrail stub (§13). The core's rules are the 
 
   The kernel runs only a configuration that hashes to the signed digest.
 - **The change analyst explains, never decides** *(decided 2026-09-25)*. A change-analyst role may explain a pending change to the confirmer. Which changes wait is decided by the kernel's deterministic comparison (process configuration §2.4), and what the person confirms is the rendered report.
-- **Commands and prompts.** Three kinds of command refuse to run in an agent session (a guardrail): `task-board playbook confirm`, the commands that grant or revoke a delegation, and the commands that grant or revoke a capability. The report prints in the terminal of the session that asks. The operating system's prompt carries the short form of the proposed digest and the number of marked changes, so that even a quick touch confirms something the person can check.
+- **Commands and prompts.** Every mutating `task-board trust` verb refuses to run in an agent session (a guardrail, §2.1): `init`, `confirm`, `grant` and `revoke` of delegations and capabilities, `disable`, `enable`, `keys add` and `keys revoke`. The report prints in the terminal of the session that asks. The operating system's prompt carries the short form of the proposed digest and the number of marked changes, so that even a quick touch confirms something the person can check.
 
 ## 5. A person's narrowing acts *(principle d)*
 
@@ -183,7 +201,7 @@ The operator companion app is the common way a person confirms and approves, and
 
 - **Platforms.** The app sits behind one abstraction over each operating system's secure storage and user authentication: iOS, Android, macOS, Windows and Linux. The track starts with one platform, iOS first. A desktop variant can be the control panel: a Mac that runs the main loop and a system-administration role for the dedicated nodes of an apiary.
 - **The key.** The app holds a key in the device's secure hardware (Secure Enclave on Apple platforms, Android Keystore, Windows Hello, a TPM) whose own access control requires the person's biometric authentication or the device's user authentication. So the operating system, not only the app, refuses a use without the person.
-- **Pairing.** The app is paired with the node through an out-of-band handshake when the node is initialized. The initialization first offers the app itself: the person chooses a platform and gets a link or a code to install it. Then there are three ways to pair:
+- **Pairing.** The app is paired with the node through an out-of-band handshake when the node is initialized (`keeper device pair`, over `task-board trust keys add`). The initialization first offers the app itself: the person chooses a platform and gets a link or a code to install it. Then there are three ways to pair:
   - **QR code.** The node renders a QR code as text in the terminal where the operator runs the initialization, locally or over SSH, with a short code beside it as the fallback.
   - **Short code.** On a node without a screen or camera path, the operator types a short pairing code; both screens then show a short authentication string, which the operator compares.
   - **From a paired workstation.** A workstation that is already paired relays the pairing over SSH, or the pairing is bootstrapped through the tailnet identity. The transport abstraction applies here as everywhere else (principle h).
@@ -199,7 +217,7 @@ The operator companion app is the common way a person confirms and approves, and
 
   Push notifications wake the app.
 - **Rendering.** The app renders what is being approved, and signs only what it rendered and computed itself (§4, principle b).
-- **A lost phone** is revoked by a narrowing act from another enrolled key (§5). If it was stolen, it is revoked as compromised, together with every key it certified (§3).
+- **A lost phone** is revoked by a narrowing act from another enrolled key (§5): `keeper device revoke`, over `task-board trust keys revoke`. If it was stolen, it is revoked as compromised, together with every key it certified (§3).
 - **Later, not in the first version:** the app may hold an SSH key to the node and offer a shell for administering it, where the infrastructure and the person's skills allow. The design allows for it from the start.
 - **Open questions** (§14): the design and platforms; the shell; the relay service.
 
@@ -207,7 +225,7 @@ The operator companion app is the common way a person confirms and approves, and
 
 Until the app exists, a headless node is confirmed from the operator's workstation.
 
-- A client command on the workstation fetches the complete resolved configurations of the proposed version and of the version in force from the node over SSH. It computes the digests and the authority report itself, renders the report, and signs (§4, principle b).
+- The client, `task-board trust confirm --node <node>` on the workstation, fetches the complete resolved configurations of the proposed version and of the version in force from the node over SSH. It computes the digests and the authority report itself, renders the report, and signs (§4, principle b).
 - The signing key must be a FIDO2 key created with required user verification. The node checks its FIDO attestation when the key is registered, and the user-verified flag of every signature.
 - The first registration on a node happens in a local session under the operating system's user authentication, or is proven by that attestation (principle f).
 - A second workstation key is an enrollment: a trusted key of the same person certifies it (§3), or an enrolled key confirms it.
@@ -225,17 +243,18 @@ The operator's private files under `~/.curator/` are listed in process configura
   - a standing answer added or extended, or a lengthened review period;
   - a window widened;
   - a runtime binding added to `runtimes.toml`;
-  - a skill source outside the Curator registry admitted in `curator.toml`;
+  - an engine added to `engines.toml`, because an engine entry names an executable and its arguments, or a network profile added to `network.toml`, because it reroutes traffic *(decided 2026-09-27)*;
+  - a skill source outside the Curator registry admitted in Curator's own configuration (`curator sources add`);
   - a confirmation level lowered.
 
   Before the first confirmation the baseline is the file-less one: no metered billing and no standing answers.
-- **`[confirmation]`** sets, per kind (`billing`, `models`, `answers`, `windows`, `runtimes`, `skills`), what a widening needs:
+- **`[confirmation]`** sets, per kind (`billing`, `models`, `answers`, `windows`, `runtimes`, `engines`, `network`, `skills`), what a widening needs:
   - `none`: it takes effect at once;
   - `user`: a person's confirmation, as in this section;
   - `second-person`: the confirmation of another operator. It becomes available with waggle's signed acts in CM2; until then the commands refuse it, and a hand-edited `second-person` reads as `user`.
 
-  The defaults are `user` for metered billing, standing answers and skills from unknown sources, and `none` for the rest. The `skills` kind can never go below `user`. Lowering a level is itself a widening and needs the level it lowers.
-- **The record.** The operator confirms with `curator models confirm` and the same verb for the other files. The command refuses to run in an agent session. It computes the digest of the widening entries itself, shows them, and signs with a presence key registered on this machine (`local-os` or `fido-uv`), per principle b. The resolver verifies the record before it honours a widening entry. These confirmations are machine-local, because the files are.
+  The defaults are `user` for metered billing, standing answers, engines, network profiles and skills from unknown sources, and `none` for the rest. The `engines` and `network` defaults are the author's (2026-09-27). The `skills` kind can never go below `user`. Lowering a level is itself a widening and needs the level it lowers.
+- **The record.** The operator confirms with `curator models confirm` and the same verb for the other files: `curator runtimes confirm`, `curator engines confirm`, `curator network confirm` and `curator sources confirm`. The command refuses to run in an agent session. It computes the digest of the widening entries itself, shows them, and signs with a presence key registered on this machine (`local-os` or `fido-uv`), per principle b. The resolver verifies the record before it honours a widening entry. These confirmations are machine-local, because the files are.
 - **Billing classes come from facts.** A runtime's billing class comes from how the harness is logged in, never from what a binding says, so a `runtimes` level of `none` never admits metered billing.
 - **Until the commands ship**, the resolver honours no widening entry whose level is not `none`, and reports each one it ignores.
 
@@ -363,7 +382,7 @@ A process should not wait for a touch on every change, and a person should not b
   - Changing `policy.dreams` is a change to the process, and it waits like any other policy (process configuration §2.4).
   - Revoking the grant stops future dreams at once. A dream already running is parked, and its outputs stay quarantined.
 - **Revocation** of a capability grant is revoking a grant, one of the three narrowing acts: it takes effect at once (§5).
-- **Review.** Once a month, together with the review of standing answers (process configuration §9), the main loop lists every capability grant that is not sealed. Until the main loop exists, a board notice does it. The person re-confirms each grant or revokes it.
+- **Review.** Once a month, together with the review of standing answers (process configuration §9), the main loop lists every capability grant that is not sealed (`keeper review`; `task-board trust status` lists the grants due). Until the main loop exists, a board notice does it. The person re-confirms each grant or revokes it.
   - **Sealing.** A grant re-confirmed at two consecutive reviews is sealed: the operator asked to "seal the decision after a couple of reminders", and the number two is the author's. A sealed grant is not reviewed again until it is revoked or its scope changes.
   - **An unanswered review** leaves the grant in force, shown as unreviewed. It is asked again at the next review, and the person can revoke it at any time. This is the author's choice: the kinds are narrow by construction. Standing answers differ: they relax hard requirements, and an unanswered review stops them (process configuration §9).
 
@@ -372,7 +391,7 @@ A process should not wait for a touch on every change, and a person should not b
 For those who accept the risk, an explicit mode trusts every change:
 
 - **What it does.** While yolo mode is on for a process, or for every process of a node, every change to the process takes effect on commit. Each version is still a link in the chain (§4) and appears in the authority report, so the history stays auditable.
-- **How it is switched on.** It is a capability grant of the special kind `yolo`, covering every difference. It needs one touch and may carry a duration, for example `24h`. Switching it off is revoking a grant (§5), and it also ends when its duration runs out.
+- **How it is switched on.** It is a capability grant of the special kind `yolo`, covering every difference: `task-board trust grant yolo [--for 24h]`, or in an apiary `keeper grant <hive>|--all yolo [--for 24h]`. It needs one touch and may carry a duration, for example `24h`. Switching it off is revoking a grant (§5), and it also ends when its duration runs out.
 - **It is loud.** A banner shows in every status, attach and chat view, and in every authority report, while yolo mode is on.
 - **Where it is refused:**
   - on a shared board, meaning one with more than one confirmer, one used from more than one machine, or any board from L1;
@@ -423,17 +442,29 @@ The process configuration proposes dream mode (process configuration §6.13): a 
   - A real high-priority doorbell wakes the dreamer. That doorbell is a real message verified as outside a dream, and nothing a dream produces can ring it.
 - **The sandbox is not a trust boundary by itself.** While agents run as the operator's OS user (§12), the sandbox's isolation from real secrets and real tools rests on the executor, which is a guardrail until the separate agent account exists. A tool's promise to have no side effect under `--dream` is part of what its audit covers.
 
-## 21. Change log: v0.2 → v0.3
+## 21. Change log: v0.3 → v0.4
+
+Applied from the operator's adoption of the command-line shape on 2026-09-27:
+
+- **The command line** (§2.1). Every act a person takes here is a verb of `task-board trust`: `init` (with `--reanchor`), `status`, `confirm [--node]`, `grant`, `revoke`, `disable`, `enable`, and `keys list|add|revoke`. Every mutating verb refuses agent sessions. The `keeper` fronts are `init`, `status`, `inbox`, `review`, `confirm`, `grant`, `revoke` and `device`. `task-board playbook confirm` stays an alias for one release, and the workstation path takes `--node` instead of `--remote`.
+- **The commands named where they act:** §4, the three kinds of command become the mutating verbs of `task-board trust`; pairing and a lost phone (§8); the workstation client (§9); the review (§16); yolo (§17).
+- **The operator's files** (§10):
+  - adding an engine or a network profile is a widening entry, with the new kinds `engines` and `network`; their default level `user` is the author's;
+  - skill sources live in Curator's own configuration, with no `curator.toml`;
+  - each file is confirmed through its own `curator <noun> confirm`.
+- **The naming rule** (Terms): beekeeping words appear only in `keeper`'s nouns and the apiary's directories.
+
+## 22. Change log: v0.2 → v0.3
 
 - **The `dreams` capability** (§16): an activity capability asked once per process. It lets the main loop put the process's orchestrators into dreams under `policy.dreams` (process configuration §6.13, curator-playbook DRAFT v4.3), covers no configuration difference, confirmation, delegation or other grant, and is never granted by default.
 - **Entering and leaving a dream** (§20). The dream profile is data and carries no key or secret; park and resume change no authority; and only a real, verified high-priority doorbell wakes the dreamer.
 
-## 22. Change log: v0.1 → v0.2
+## 23. Change log: v0.1 → v0.2
 
 - **Dream sandbox isolation** (§20), for the dream mode proposed in process configuration §6.13 (curator-playbook DRAFT v4.2): no real secrets, privileged operations only simulated, dream evidence never counts for authority.
 - **Read-only access to past sessions in a dream** (§20): an orchestrator reads its own process's previous harness logs through the deterministic log distiller, which redacts secret-shaped content; only the dream's report and its quarantined insights leave the sandbox.
 
-## 23. Change log: v0 → v0.1
+## 24. Change log: v0 → v0.1
 
 - **The move.** This document moved from relux-works/curator-playbook into its own private repository, and the reasons are stated in the introduction. Links to the core and to its reviews now point to that repository.
 - **Operator decisions of 2026-09-25 recorded in this revision:**
