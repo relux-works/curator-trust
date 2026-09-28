@@ -319,6 +319,12 @@ The claim that "no session can edit its own authority" holds only against agents
 10. **The web of trust**: whether a certification may cross devices of different presence classes without limit, and how deep a chain may grow before a verifier asks for a confirmation (§3).
 11. **Trust in audits and restored skills**: how signed audit records from the Curator registry, the operator's own registry and the operator's personal endorsements on the phone combine into the trusted-skills list that a restore hands to Curator (the main loop's system-administration role; curator-spec#93, #94).
 
+### 14.1 Open ideas, not planned
+
+Recorded so they are not lost. None is scheduled, and none changes the design above.
+
+1. **Coupons** *(from the operators' call; recorded 2026-09-28, not now)*. For spending, instead of a broad capability, a person issues a single-use authorization for one operation with a bounded amount: the agent can execute exactly that operation once and cannot spend more. It would be a capability kind with an amount limit and a single use (§16), signed like any grant, and consumed by the executor of privileged operations (§18). Open if it is ever taken up: how an amount is expressed across providers and currencies, how a coupon expires, and how its use is recorded when the outcome is unknown.
+
 ## 15. Findings of the sixth refuter run answered here
 
 The run reviewed draft v3.5 ([`reviews/2026-09-24-refuter-v5.md`](https://github.com/relux-works/curator-playbook/blob/main/reviews/2026-09-24-refuter-v5.md) in curator-playbook). Process configuration §26 maps every finding; these are the ones this document answers.
