@@ -306,6 +306,10 @@ The claim that "no session can edit its own authority" holds only against agents
 | any | the companion app | its own track (§8) |
 | later | a separate OS account for agents, and the broker | §12 |
 
+**Before any stage ships: the two operators' swarms** *(decided 2026-09-29, the operators' evening call)*. The two swarms trust each other fully for now: the orchestrators take each other's requests. Signed messages and a trusted configuration come later, built on §3 and §7 of this document and on waggle §3–§4. The goal is trust out of the box, with no hand-written instructions to each orchestrator, so trust comes from configuration, not from chat.
+
+<!-- TODO(tb-keeper): source: relux-works/wiki decisions.md, "2026-09-29 evening call: the shared swarm, remote workers, trust", *The two swarms trust each other fully for now* and its sub-bullets; digest research/call-digest-2026-09-29-evening.md §5. Open: whether this interim is a row of the table (before L0, or beside L1 as its predecessor) or this note; whether the a2a swarm channel is named here at all; and whether "trust out of the box" is an item of §14. -->
+
 ## 14. Open questions
 
 1. **OS-level protection and the broker.** The design of the separate agent account and of the broker: which edits the broker performs, how it authenticates the session that asks, how it runs on each operating system, and how today's single-account installs migrate to it (§12).
