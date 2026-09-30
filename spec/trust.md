@@ -53,7 +53,7 @@ The operators approved these names on 2026-09-25, the English forms included *(d
 
 ## 1. Principles *(accepted by the operator, 2026-09-25)*
 
-- **(a) Only a person confirms.** A confirmation is valid only when it is signed with a key that requires a person's presence: a Secure Enclave key behind biometrics, a FIDO2 key with user verification, or the attested companion app. No project setting lowers this.
+- **(a) Only a person confirms.** A confirmation is valid only when it is signed with a key that requires a person's presence, in one of the three classes of §3: a FIDO2 key with user verification (`fido-uv`), a Secure Enclave, Windows Hello or TPM key behind the operating system's user authentication (`local-os`), or the attested companion app (`attested-app`). No project setting lowers this.
 - **(b) The signer computes what it signs.** The signing device renders the change itself and signs what it rendered, never a digest computed elsewhere.
 - **(c) A chain, not a set.** Confirmations form a chain. An old confirmation never revives after a revert.
 - **(d) A person's narrowing takes effect at once.** A person's signed narrowing acts take effect immediately. There are exactly three: revoking a key, revoking a grant, and disabling a tool *(decided 2026-09-25)*. A grant is a delegation grant or a capability grant.
