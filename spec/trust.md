@@ -92,6 +92,7 @@ Every act of this document that a person takes at a terminal is a verb of one ke
 | `task-board trust confirm [--node <node>]` | confirms a pending version (§4); `--node` runs the workstation path for a headless node (§9) | `keeper confirm` |
 | `task-board trust grant <kind>[:<name>] [--for <duration>]`, `task-board trust revoke …` | grants or revokes a capability, `yolo` and `dreams` included (§16, §17), or a delegation under a rule of the project (§7); a revocation is a narrowing act (§5) | `keeper grant`, `keeper revoke` |
 | `task-board trust disable <tool>`, `task-board trust enable <tool>` | disables a tool, a narrowing act (§5); enabling it again waits like any change that restores what a narrowing removed (§5) | — |
+| `task-board mail approve <id>`, `task-board mail reject <id>` | decides one pending item, such as a quarantined message (waggle; curator-keeper §7.2). TODO(tb-keeper): this is a `task-board mail` verb, not a `task-board trust` verb; say whether the one-noun rule above covers it | `keeper approve`, `keeper reject` |
 | `task-board trust keys list`, `keys add`, `keys revoke [--compromised]` | the enrolled keys; enrolls a key by certification (§3), by pairing the companion app (§8) or by registering a workstation's key (§9); revokes a key, a narrowing act (§5) | `keeper device list\|pair\|revoke` |
 
 - `task-board playbook confirm` stays an alias of `task-board trust confirm` for one release (process configuration §2.3).
@@ -452,7 +453,7 @@ The process configuration proposes dream mode (process configuration §6.13): a 
 
 Applied from the operator's adoption of the command-line shape on 2026-09-27:
 
-- **The command line** (§2.1). Every act a person takes here is a verb of `task-board trust`: `init` (with `--reanchor`), `status`, `confirm [--node]`, `grant`, `revoke`, `disable`, `enable`, and `keys list|add|revoke`. Every mutating verb refuses agent sessions. The `keeper` fronts are `init`, `status`, `inbox`, `review`, `confirm`, `grant`, `revoke` and `device`. `task-board playbook confirm` stays an alias for one release, and the workstation path takes `--node` instead of `--remote`.
+- **The command line** (§2.1). Every act a person takes here is a verb of `task-board trust`: `init` (with `--reanchor`), `status`, `confirm [--node]`, `grant`, `revoke`, `disable`, `enable`, and `keys list|add|revoke`. Every mutating verb refuses agent sessions. The `keeper` fronts are `init`, `status`, `inbox`, `review`, `confirm`, `grant`, `revoke` and `device`, and `approve` and `reject` over `task-board mail approve|reject <id>` for one pending item. `task-board playbook confirm` stays an alias for one release, and the workstation path takes `--node` instead of `--remote`.
 - **The commands named where they act:** §4, the three kinds of command become the mutating verbs of `task-board trust`; pairing and a lost phone (§8); the workstation client (§9); the review (§16); yolo (§17).
 - **The operator's files** (§10):
   - adding an engine or a network profile is a widening entry, with the new kinds `engines` and `network`; their default level `user` is the author's;
