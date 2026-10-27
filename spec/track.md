@@ -28,7 +28,7 @@ The rules stay the same at every step, and so does the aim: a person is asked on
 ## Dependencies
 
 - **The process configuration core** (relux-works/curator-playbook): the classification of changes by capability kind, the version in force, the authority report, and the kernel's executor.
-- **waggle** (relux-works/waggle): envelopes, key providers and their assurance, the roster, Amendment A1's board acts, and multi-signature envelopes.
+- **waggle** (relux-works/swarma-envelope): envelopes, key providers and their assurance, the roster, Amendment A1's board acts, and multi-signature envelopes.
 - **The session host** (relux-works/agent-session-host): marks that say who started a session and which role it runs, the doorbell for requests to confirm, and the refusal of confirmation commands inside agent sessions.
 - **The main loop** (relux-works/curator-keeper): how capability requests, reviews and approvals reach the person, through `keeper inbox`, `confirm`, `grant`, `revoke`, `review` and `device` over `task-board trust`; the system-administration role's restore of trusted skills.
 - **Curator**: signed audit records (the registry protocol); the attestation-based install path (curator-spec#94); export and import of profile declarations for restore (curator-spec#93).

@@ -22,6 +22,6 @@ The repository is private until the licensing work and the counsel review are do
 ## How it fits
 
 - **Process configuration** (relux-works/curator-playbook, `spec/process-configuration.md`) decides which changes to a process wait for a person and which acts need a signature. It reaches this design through one interface: a version takes effect when the trust component reports it confirmed.
-- **waggle** (relux-works/waggle) defines the wire forms: signed envelopes, keys and their providers, the roster, board acts. This design is the policy that uses them.
+- **waggle** (relux-works/swarma-envelope) defines the wire forms: signed envelopes, keys and their providers, the roster, board acts. This design is the policy that uses them.
 - **The main loop** (relux-works/curator-keeper) and **the session host** (relux-works/agent-session-host) carry a person's confirmations and approvals to a node, often from the companion app on a phone.
 - **Curator** (relux-works/curator-spec) supplies the audit registry. Its signed audit records are one of the trust anchors this design builds on.
